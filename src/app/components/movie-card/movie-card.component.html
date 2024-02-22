@@ -1,0 +1,15 @@
+<mat-card (click)="movieClicked.emit(info.title)">
+  <mat-card-header>
+    <mat-card-title>{{ info.title }}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    @if (info.poster_path) {
+    <img
+      [src]="'https://image.tmdb.org/t/p/w500' + info.poster_path"
+      class="img-fluid"
+    />
+    }
+    <p>Date: {{ info.release_date | date : "dd MMM yyyy" }}</p>
+    <p>Rating: {{ info.vote_average }}</p>
+  </mat-card-content>
+</mat-card>

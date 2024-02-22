@@ -1,0 +1,17 @@
+<div class="container-fluid px-3">
+  <div class="row mt-3">
+    <div class="col">
+      <h1>Popular Movies</h1>
+    </div>
+  </div>
+  <div class="row d-flex align-items-stretch">
+    @for (movie of movies; track $index) {
+    <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2 me-2 mb-4">
+      <app-movie-card
+        [info]="movie"
+        (movieClicked)="cardClicked($event)"
+      ></app-movie-card>
+    </div>
+    }
+  </div>
+</div>
