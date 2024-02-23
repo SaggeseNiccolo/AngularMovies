@@ -1,46 +1,58 @@
-<div class="row poster mb-4 poster-bg">
+@if (movie) {
+<div
+  class="row poster-bg mb-4"
+  [ngStyle]="{
+    'background-image':
+      'url(https://image.tmdb.org/t/p/original' + movie.backdrop_path + ')'
+  }"
+>
   <div class="col d-flex justify-content-center mb-5 poster-side">
-    <!-- <img
+    @if (movie.poster_path) {
+    <img
       [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
-      class="img-fluid"
-    /> -->
+      class="mt-5 w-100 img-fluid poster"
+    />
+    }
     <div class="col-5 ms-4 mt-5 movie-info">
       <h1 class="fw-bold mb-1 movie-title">
-        Titolo
-        <!-- {{ movie.title }} -->
+        {{ movie.title }}
       </h1>
       <span class="movie-subtitle">
-        Data di uscita
-        <!-- {{ movie.release_date | date : "dd MMM yyyy" }} -->
+        {{ movie.release_date | date : "dd MMM yyyy" }}
       </span>
       <h2 class="mt-3 mb-1">
-        <strong>
-          Descrizione
-          <!-- {{ movie.overview }} -->
-        </strong>
+        <strong> Descrizione </strong>
       </h2>
-      <h3>Sinossi</h3>
-      <button class="trailer-btn" mat-raised-button type="button">
+      <h3>{{ movie.overview }}</h3>
+      <button
+        class="trailer-btn"
+        mat-raised-button
+        type="button"
+        (click)="openTrailerDialog()"
+      >
         Guarda il trailer
       </button>
     </div>
   </div>
 </div>
+<div class="row d-flex align-items-center w-100 mb-3">
+  @for (company of movie.production_companies; track $index) {
+  <div class="col d-flex justify-content-center">
+    @if (company.logo_path) {
+    <img
+      [src]="'https://image.tmdb.org/t/p/original' + company.logo_path"
+      class="w-100 img-fluid company-img"
+    />
+    } @else {
+    <strong>{{ company.name }}</strong>
+    }
+  </div>
+  }
+</div>
+} @else {
 <div class="row">
   <div class="col d-flex justify-content-center">
-    <!-- Loghi o nomi compagnie -->
-
-    <div class="col-5 ms-4 mt-5 movie-info">
-      <h2 class="mt-3 mb-1">
-        <strong>
-          Compagnie
-          <!-- {{ movie.production_companies }} -->
-        </strong>
-      </h2>
-      <h3>Cast</h3>
-      <button class="trailer-btn" mat-raised-button type="button">
-        Guarda il cast
-      </button>
-    </div>
+    <h1>Film non trovato</h1>
   </div>
 </div>
+}

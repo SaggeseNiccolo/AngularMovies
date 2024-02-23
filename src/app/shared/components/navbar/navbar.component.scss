@@ -1,3 +1,12 @@
 .example-spacer {
   flex: 1 1 auto;
 }
+
+.pointer {
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 5px;
+  &:hover {
+    background-color: rgba($color: #000, $alpha: 0.05);
+  }
+}
