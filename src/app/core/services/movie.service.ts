@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { DiscoverResponse } from '../intefaces/types';
+import { DiscoverResponse, Movie, VideoResult } from '../intefaces/types';
 import { HttpBaseService } from './http-base.service';
 
 @Injectable({
@@ -15,6 +15,16 @@ export class MovieService {
         'discover/movie',
         '&sort_by=popularity.desc&include_adult=false'
       )
+    );
+  }
+
+  getMovieInfo(id: number) {
+    return this.http.get<Movie>(this.base.buildApiRequest(`movie/${id}`));
+  }
+
+  getMovieTrailer(id: number) {
+    return this.http.get<VideoResult>(
+      this.base.buildApiRequest(`movie/${id}/videos`, '&language=it-IT')
     );
   }
 }

@@ -5,6 +5,7 @@ import { DiscoverResponse, Movie } from '../../core/intefaces/types';
 import { take } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { MovieCardComponent } from '../movie-card/movie-card.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -16,7 +17,7 @@ import { MovieCardComponent } from '../movie-card/movie-card.component';
 export class HomeComponent {
   movies: Movie[] = [];
 
-  constructor(private movieService: MovieService) {
+  constructor(private movieService: MovieService, private router: Router) {
     this.getPopular();
   }
 
@@ -27,6 +28,8 @@ export class HomeComponent {
       .subscribe({
         next: (result: DiscoverResponse) => {
           this.movies = result.results;
+          // Sort by vote_average
+          this.movies.sort((a, b) => b.vote_average - a.vote_average);
         },
         error: (error) => {
           console.error(error);
@@ -34,7 +37,7 @@ export class HomeComponent {
       });
   }
 
-  cardClicked(title: string) {
-    console.log(`Card clicked: ${title}`);
+  cardClicked(id: number) {
+    this.router.navigateByUrl(`/movie/${id}`);
   }
 }
