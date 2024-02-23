@@ -28,6 +28,8 @@ export class HomeComponent {
       .subscribe({
         next: (result: DiscoverResponse) => {
           this.movies = result.results;
+          // Sort by vote_average
+          this.movies.sort((a, b) => b.vote_average - a.vote_average);
         },
         error: (error) => {
           console.error(error);

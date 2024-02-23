@@ -1,6 +1,10 @@
 <mat-card (click)="movieClicked.emit(info.id)" class="card">
   <mat-card-header>
-    <mat-card-title class="title">{{ info.title }}</mat-card-title>
+    <mat-card-title class="title">
+      {{
+        (info.title | slice : 0 : 15) + (info.title.length > 15 ? "..." : "")
+      }}
+    </mat-card-title>
   </mat-card-header>
   <mat-card-content>
     @if (info.poster_path) {
@@ -9,7 +13,7 @@
       class="img-fluid"
     />
     }
-    <p class="mt-2">Date: {{ info.release_date | date : "dd MMM yyyy" }}</p>
+    <p class="mt-2">{{ info.release_date | date : "d MMM yyyy" }}</p>
     <p>Rating: {{ info.vote_average }}</p>
   </mat-card-content>
 </mat-card>
